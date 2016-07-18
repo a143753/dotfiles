@@ -1,11 +1,12 @@
 ;; $HeadURL: svn://rdnzl/dotfiles/.emacs $
 ;; $Id: .emacs 16474 2009-12-23 08:06:06Z funamoto $
 
+(load "~/.emacs.d/private.el")
+
 (setq load-path 
     (append (list (expand-file-name "~/lib/elisp")) load-path))
 
 (set-language-environment "Japanese")
-(setq user-mail-address "kazuhisa.funamoto@gmail.com")
 
 (require 'server)
 (unless (server-running-p) (server-start))
@@ -74,9 +75,7 @@
 (defun memo ()
   (interactive)
   (let ((add-log-current-defun-function 'ignore))
-    (if (featurep 'meadow)
-	(setq memo-file "c:/users/funamoto/documents/doc/Changelog")
-      (setq memo-file "~/Documents/Changelog"))
+    (setq memo-file "~/Documents/Changelog")
     (set-buffer (find-file-noselect memo-file))
     (add-change-log-entry
      nil
