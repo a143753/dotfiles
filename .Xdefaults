@@ -1,0 +1,7 @@
+emacs*Background: Black
+emacs*Foreground: White
+!emacs*pointerColor: Orchid
+!emacs*cursorColor: Orchid
+emacs*bitmapIcon: on
+!emacs*font: -Adobe-Courier-Medium-R-Normal--12-*-*-*-*-*-ISO8859-1
+!emacs.geometry: 90x54
