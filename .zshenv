@@ -1,5 +1,3 @@
-# $HeadURL: svn://rdnzl/dotfiles/.zshenv $
-# $Id: .zshenv 16492 2010-01-10 13:10:10Z funamoto $
 
 path=( \
     /usr/local/pkgs/ruby/bin \
@@ -23,7 +21,6 @@ export HISTFILE="~/.history"
 export EDITOR="emacsclient"
 export ALTERNATE_EDITOR="emacs"
 export GOROOT=/usr/local/go
-export GOPATH=/home/funamoto/go
 
 export RUBYLIB=.
 

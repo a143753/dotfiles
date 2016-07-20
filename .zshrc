@@ -1,10 +1,3 @@
-# $HeadURL: svn://rdnzl/dotfiles/.zshrc $
-# $Id: .zshrc 16476 2009-12-24 00:41:39Z funamoto $
-
-
-killproc(){
- kill `ps -u funamoto |grep $1 | awk '{print $1}'`
-}
 
 bindkey -e
 bindkey ' ' magic-space

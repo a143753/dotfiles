@@ -1,10 +1,7 @@
-;; $HeadURL: svn://rdnzl/dotfiles/.emacs $
-;; $Id: .emacs 16474 2009-12-23 08:06:06Z funamoto $
-
+;;
 (load "~/.emacs.d/private.el")
-
 (setq load-path 
-    (append (list (expand-file-name "~/lib/elisp")) load-path))
+      (append (list (expand-file-name "~/lib/elisp")) load-path))
 
 (set-language-environment "Japanese")
 
@@ -20,6 +17,12 @@
 ;(set-foreground-color "white")
 ;(set-background-color "black")
 ;(defconst FONT_SIZE 7)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; packaging system
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 ;;
 ;; Key Bindings
@@ -67,7 +70,7 @@
 	  '(lambda ()
 	     (inf-ruby-keys)
 	     (font-lock-mode t)
-	     (setq ruby-indent-level 4)))
+	     (setq ruby-indent-level 2)))
 
 ;;
 ;; ChangeLog
@@ -108,19 +111,6 @@
 ;;     (if (eq selective-display t)
 ;;         (re-search-forward "[\n\C-m]" nil 'end (1- arg))
 ;;       (forward-line (1- arg)))))
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(ruby-indent-level 4))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
-)
 
 ;;
 ;; evernote mode
