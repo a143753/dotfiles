@@ -65,10 +65,9 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (autoload 'run-ruby "inf-ruby" "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby" "Set local key defs for inf-ruby in ruby-mode")
 (add-hook 'ruby-mode-hook
 	  '(lambda ()
-	     (inf-ruby-keys)
+	     (inf-ruby-minor-mode)
 	     (font-lock-mode t)
 	     (setq ruby-indent-level 2)))
 
@@ -135,7 +134,7 @@
          (local-file  (file-relative-name
                        (file-truename temp-file)
                        (file-name-directory (file-truename buffer-file-name)))))
-    (list "ruby21" (list "-c" local-file))))
+    (list "ruby" (list "-c" local-file))))
 
 (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
