@@ -1,9 +1,14 @@
 ;;
-(load "~/.emacs.d/private.el")
+;(load "~/.emacs.d/private.el")
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq load-path 
       (append (list (expand-file-name "~/lib/elisp")) load-path))
-
-(set-language-environment "Japanese")
 
 (require 'server)
 (unless (server-running-p) (server-start))
@@ -14,6 +19,8 @@
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (font-lock-mode t)
+(line-number-mode t)
+(column-number-mode t)
 ;(set-foreground-color "white")
 ;(set-background-color "black")
 ;(defconst FONT_SIZE 7)
@@ -22,7 +29,8 @@
 ;; packaging system
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+	     '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
 
 ;;
 ;; Key Bindings
@@ -32,6 +40,15 @@
 (global-set-key "\C-x%" 'query-replace-regexp)
 (global-set-key "\C-z" 'scroll-down)
 (global-set-key "\C-h" 'backward-delete-char-untabify)
+(global-set-key "\M-h" 'helm-mini)
+(global-set-key "\M-H" 'helm-for-files)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 
+;; helm
+;;
+(require 'helm-config)
+(helm-mode +1)
 
 ;;;
 ; ibus (mozc)
@@ -41,15 +58,16 @@
 ;(define-key global-map "\C-\\" 'ibus-toggle)
 ;(ibus-define-common-key ?\C-\s nil)
 
-(require 'skk-autoloads)
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
 (global-set-key "\C-xt" 'skk-tutorial)
+(setq skk-kutouten-type 'en)
+(setq skk-isearch-mode-enable t)
 
 ;;
 ;; navi2ch
 ;;
-(autoload 'navi2ch "navi2ch" "Navigator for 2ch for Emacs" t)
+;;(autoload 'navi2ch "navi2ch" "Navigator for 2ch for Emacs" t)
 ;;
 ;; for C/C++
 ;;
@@ -74,15 +92,31 @@
 ;;
 ;; ChangeLog
 ;;
-(defun memo ()
-  (interactive)
-  (let ((add-log-current-defun-function 'ignore))
-    (setq memo-file "~/Documents/Changelog")
-    (set-buffer (find-file-noselect memo-file))
-    (add-change-log-entry
-     nil
-     (expand-file-name memo-file))))
-(define-key ctl-x-map "M" 'memo)
+;; (defun memo ()
+;;   (interactive)
+;;   (let ((add-log-current-defun-function 'ignore))
+;;     (setq memo-file "~/Documents/Changelog")
+;;     (set-buffer (find-file-noselect memo-file))
+;;     (add-change-log-entry
+;;      nil
+;;      (expand-file-name memo-file))))
+;; (define-key ctl-x-map "M" 'memo)
+(setq clmemo-file-name "~/Documents/Changelog")
+
+(autoload 'clmemo "clmemo" "ChangeLog memo mode." t)
+(define-key ctl-x-map "M" 'clmemo)
+;; 補完されるタイトルのリスト
+(setq clmemo-title-list
+      '("Ruby" "Meadow" "Book" "Idea" "BTC"))
+(autoload 'clgrep "clgrep" "grep mode for ChangeLog file." t)
+(autoload 'clgrep-title "clgrep" "grep first line of entry in ChangeLog." t)
+(autoload 'clgrep-header "clgrep" "grep header line of ChangeLog." t)
+(autoload 'clgrep-other-window "clgrep" "clgrep in other window." t)
+(autoload 'clgrep-clmemo "clgrep" "clgrep directly ChangeLog MEMO." t)
+(add-hook 'change-log-mode-hook
+          '(lambda ()
+             (define-key change-log-mode-map "\C-c\C-g" 'clgrep)
+             (define-key change-log-mode-map "\C-c\C-t" 'clgrep-title)))
 
 ;;
 ;; Version Control
@@ -110,6 +144,18 @@
 ;;     (if (eq selective-display t)
 ;;         (re-search-forward "[\n\C-m]" nil 'end (1- arg))
 ;;       (forward-line (1- arg)))))
+
+;(setq navi2ch-net-http-proxy "127.0.0.1:8080") 
+;(setq navi2ch-net-send-message-use-http-proxy nil) 
+;(setq navi2ch-article-auto-range nil) 
+;(setq navi2ch-mona-enable t) 
+;(setq navi2ch-mona-face-variable 'navi2ch-mona16-face) 
+;(set-face-font 'navi2ch-mona-face "Mona") 
+;(setq navi2ch-bm-stay-board-window nil) 
+;(setq navi2ch-net-save-old-file-when-aborn nil) 
+;(require 'navi2ch-head) 
+;(setq navi2ch-history-max-line nil) 
+;(setq navi2ch-mona-on-message-mode t)
 
 ;;
 ;; evernote mode
@@ -161,3 +207,20 @@
                (line       (flymake-ler-line (nth (1- count) line-err-info-list))))
           (message "[%s] %s" line text)))
       (setq count (1- count)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (ac-haskell-process ac-helm auto-complete org org-brain clmemo caml flycheck-ocaml matlab-mode racket-mode helm helm-ghc helm-git helm-git-files helm-git-grep helm-hoogle sml-mode inf-ruby ddskk haskell-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(load "~/.emacs.d/util.el")
+

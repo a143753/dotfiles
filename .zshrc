@@ -1,4 +1,3 @@
-
 bindkey -e
 bindkey ' ' magic-space
 
@@ -62,7 +61,7 @@ alias skm="~/bin/$OSTYPE/skm out"
 alias 5echo="/usr/5bin/echo"
 alias pwd="/bin/pwd"
 
-alias emacs="XMODIFIERS=\"@im=none\" emacs -bg black -fg white -fn a14"
+#alias emacs="XMODIFIERS=\"@im=none\" emacs -bg black -fg white -fn a14"
 alias vi="vim"
 
 HISTFILE=$HOME/.zsh-history
@@ -79,3 +78,27 @@ export QT_IM_MODULE=xim
 export XMODIFIERS=@im=ibus
 export XIM_PROGRAM="ibus-daemon"
 export XIM_ARGS="-r --daemonize --xim"
+
+
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$(CONDA_REPORT_ERRORS=false '/home/a143753/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     \eval "$__conda_setup"
+# else
+#     if [ -f "/home/a143753/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/a143753/anaconda3/etc/profile.d/conda.sh"
+#         CONDA_CHANGEPS1=false conda activate base
+#     else
+#         \export PATH="/home/a143753/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda init <<<
+
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH=${PYENV_ROOT}/bin:$PATH
+eval "$(pyenv init -)"
+
+# OPAM configuration
+. /home/a143753/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

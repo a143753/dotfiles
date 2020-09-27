@@ -1,12 +1,12 @@
 
 path=( \
-    /usr/local/pkgs/ruby/bin \
-    /usr/local/go/bin \
-    ~/go/bin \
-    ~/eclipse \
-    ~/android/android-sdk-linux_x86/tools \
-    ~/android/android-sdk-linux_x86/tools/platform-tools \
-    $path \
+       ~/.local/bin \
+       ~/anaconda3/bin \
+       ~/.stack/programs/x86_64-linux/ghc-nopie-8.0.1/bin \
+       /usr/local/go/bin \
+       ~/go/bin \
+       ~/.cargo/bin \
+       $path \
 )
 
 export LANG=ja_JP.UTF-8
@@ -18,8 +18,8 @@ export LC_CTYPE=ja_JP.UTF-8
 export PAGER=lv
 #export XMODIFIERS="@im=xim"
 export HISTFILE="~/.history"
-export EDITOR="emacsclient"
-export ALTERNATE_EDITOR="emacs"
+export EDITOR="gvim -f"
+export ALTERNATE_EDITOR="vim"
 export GOROOT=/usr/local/go
 
 export RUBYLIB=.
